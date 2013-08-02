@@ -1,0 +1,66 @@
+/* Glow effect */
+/* Silver gray */
+/* Cobalt */
+/* Jet Black */
+/* Jet Black 2 */
+/* Light Gray */
+/* Black */
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  background: #121417;
+}
+table {
+  table-layout: fixed;
+}
+#app {
+  padding: 10px;
+}
+.table {
+  background-color: #ffffff;
+}
+.hidden-buttons {
+  display: none;
+}
+.table-hover tbody tr:hover .hidden-buttons {
+  display: block;
+}
+.star {
+  background-image: url("../img/ratingStar.gif");
+  background-repeat: no-repeat;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  display: inline-block;
+}
+.star-gold,
+.star-half {
+  background-position: 0 -28px;
+}
+.star-silver {
+  background-position: 0 0;
+}
+.star-half:after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 28px;
+  background-image: url("../img/ratingStar.gif");
+  background-position: 14px 0;
+  margin-left: 14px;
+}
+/* ********************* Loading spinner ****************/
+#pagination {
+  padding: 25px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+#pagination #spinner {
+  width: 32px;
+  height: 33px;
+  background: url('../img/spinner.gif');
+  vertical-align: -5px;
+  margin-right: 10px;
+  display: inline-block;
+}

@@ -1,0 +1,113 @@
+@import "imports/functions.less";
+@import "imports/newstyles";
+
+@bgColor: #111111;
+@font: Helvetica, Arial, sans-serif;
+
+@textColor: #999;
+@headerColor: #ffffff;
+/* Silver gray */
+@headColor: #adafae;
+/* Cobalt */
+@linkColor: #33B5E5;
+/* Jet Black */
+@bgColor: #121417;
+/* Jet Black 2 */
+@wellColor: #131517;
+/* Light Gray */
+@insetBorder: #2f2f2f;
+/* Black */
+@outsetBorder: #030303;
+
+@ratingStar: "../img/ratingStar.gif";
+
+body {
+  font-family: @font;
+  font-size: 13px;
+  background: @bgColor;
+}
+
+table {
+  table-layout: fixed;
+}
+
+#app {
+  padding: 10px;
+}
+
+.table {
+  background-color: #ffffff;
+}
+
+.hidden-buttons {
+  display: none;
+}
+
+.table-hover tbody tr:hover .hidden-buttons {
+  display: block;
+}
+
+// -------------------- Rating Stars styles -----------------
+// TODO Put this on its own file
+
+@starWidth: 28px;
+@starHeight: 28px;
+@silverStarX: 0;
+@silverStarY: 0;
+@goldStarX: 0;
+@goldStarY: -28px;
+
+.star {
+  background-image: url(@ratingStar);
+  background-repeat: no-repeat;
+  width: @starWidth;
+  height: @starHeight;
+  margin: 0;
+  display: inline-block;
+}
+
+.star-gold, .star-half {
+  background-position: @goldStarX @goldStarY;
+}
+
+.star-silver {
+  background-position: @silverStarX @silverStarY;
+}
+
+// todo find a better way
+.star-half:after {
+  content: "";
+  position: absolute;
+  width: @starWidth / 2;
+  height: @starHeight;
+  background-image: url(@ratingStar);
+  background-position: (@silverStarX + (@starWidth / 2)) @silverStarY;
+  margin-left: (@silverStarX + (@starWidth / 2));
+}
+
+/* ********************* Loading spinner ****************/
+#pagination {
+  padding: 25px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+//#pagination_failure {
+//  background: linear-gradient(to bottom, darkred, crimson);
+//}
+//
+//#pagination_none {
+//  background: linear-gradient(to bottom, #020202, #000000);
+//  color: white;
+//}
+
+#pagination #spinner {
+  width: 32px;
+  height: 33px;
+  background: url('../img/spinner.gif');
+  vertical-align: -5px;
+  margin-right: 10px;
+  display: inline-block;
+
+}
