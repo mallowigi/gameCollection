@@ -1,0 +1,35 @@
+<!-- TODO add functions in the view to do animations-->
+<tr>
+    <td class="cell-image">
+        <ul class="thumbnails">
+            <li>
+                <div class="thumbnail">
+                    <img data-src="holder.js/150x150"/>
+                </div>
+            </li>
+        </ul>
+    </td>
+    <td>
+        <div class="description">
+            <dl class="dl-horizontal">
+                <dt>Name:</dt>
+                <dd><%=title%></dd>
+                <dt>Publisher:</dt>
+                <dd><%=publisher%></dd>
+                <dt>Released Date:</dt>
+                <dd><%=releasedDate%></dd>
+                <dt>Description:</dt>
+                <dd><%=description%></dd>
+            </dl>
+        </div>
+    </td>
+    <td>
+        <div class="ratingStars" data-rating="<%=rating%>"></div>
+    </td>
+    <td>
+        <div class="hidden-buttons">
+            <a class="btn hidden-btn">Edit</a>
+            <a class="btn hidden-btn"><i class="icon-trash"></i></a>
+        </div>
+    </td>
+</tr>
