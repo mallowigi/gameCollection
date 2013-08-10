@@ -8,7 +8,7 @@ define(['backbone',
 	'ratingStars'
 ], function (BackBone, GamesView, gameListTemplate, gameListItemTemplate, ratingStars) {
 	// Extends games view
-	var GameListView = GamesView.extend({
+	var GameListView = Backbone.View.extend({
 		initialize: function () {
 			console.log("init Games List View");
 		},

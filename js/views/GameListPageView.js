@@ -90,18 +90,18 @@ define(['backbone',
 					Backbone.trigger("finishedLoading", "success");
 
 					// remove spinner
-//					that.loadMoreButtonView.removeButton();
-//					that.renderGames(that.games, that.listType);
+					//					that.loadMoreButtonView.removeButton();
+					//					that.renderGames(that.games, that.listType);
 
 					// todo maybe send event here?
-//					that.loadMoreButtonView.isLoading = false;
+					//					that.loadMoreButtonView.isLoading = false;
 				},
 				error: function () {
 					console.log("Error retrieving games from server");
 					Backbone.trigger("finishedLoading", "failure");
 
-//					that.loadMoreButtonView.showError();
-//					that.isLoading = false;
+					//					that.loadMoreButtonView.showError();
+					//					that.isLoading = false;
 
 				}
 			});
@@ -138,18 +138,6 @@ define(['backbone',
 
 				}
 			});
-		},
-
-		/**
-		 * Renders the navbar with the given user
-		 * @param user the user
-		 */
-		renderNavBar: function (user) {
-			console.log("Creating the NavBarView");
-			var navBarView = new NavBarView({
-				model: user
-			});
-			navBarView.render();
 		},
 
 		/**
@@ -191,9 +179,6 @@ define(['backbone',
 			console.log("Rendering Game List Page View");
 			// Inserts the template in $el
 			this.$el.html(gameListPageTemplate);
-
-			// Inits and renders the navBarView
-			this.renderNavBar(that.user);
 
 			// Inits and renders the gameListView
 			this.loadGames();

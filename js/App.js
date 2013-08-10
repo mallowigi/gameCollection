@@ -1,17 +1,18 @@
 /**
  * Created by Elior on 12/07/13.
+ * The app bootstrapping
  */
-define(['backbone', 'router', 'jquery', 'masonry'], function(Backbone, Router, $, Masonry) {
+define(['backbone',
+	'Router',
+	'views/MainView'
+], function (Backbone, Router, MainView) {
 	return {
-		initialize: function() {
-			console.log("Initializing the App");
-			Router.initialize();
+		initialize: function () {
+			console.log("Creating MainView");
+			new MainView().render();
 
-			var $container = $('#container');
-			$container.masonry({
-				columnWidth: 200,
-				itemSelector: '.hero-item'
-			});
+			console.log("Initializing the routes");
+			var router = new Router();
 		}
 	}
 });

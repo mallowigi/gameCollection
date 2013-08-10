@@ -12,7 +12,7 @@ define(['backbone',
 	'jquery.carousel3d'
 ], function (BackBone, GamesView, gameGridTemplate, gameGridItemTemplate, imagesLoaded, carousel3d) {
 	// Extends games view
-	var GamesCarouselView = GamesView.extend({
+	var GamesCarouselView = Backbone.View.extend({
 		initialize: function () {
 			console.log("init Games Carousel View");
 		},

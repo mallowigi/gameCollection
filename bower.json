@@ -1,0 +1,9 @@
+{
+	"name": "GameCollection",
+	"version": "0.1.1",
+	"main": "js/main",
+	"ignore": [".idea", "*.iml"],
+	"dependencies": {
+		"jquery": "1.10.2"
+	}
+}

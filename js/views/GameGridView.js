@@ -8,7 +8,7 @@ define(['backbone',
 	'masonry', 'jquery.imagesLoaded'
 ], function (BackBone, GamesView, gameGridTemplate, gameGridItemTemplate, masonry, imagesLoaded) {
 	// Extends games view
-	var GamesGridView = GamesView.extend({
+	var GamesGridView = Backbone.View.extend({
 		initialize: function () {
 			console.log("init Games Grid View");
 		},

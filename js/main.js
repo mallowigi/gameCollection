@@ -11,6 +11,9 @@
 			backbone: 'assets/backbone',
 			bootstrap: 'assets/bootstrap.min',
 			holder: 'assets/holder',
+			// facebook integration
+			'facebook': '//connect.facebook.net/en_US/all/debug',
+			'fb': 'assets/fb',
 			// underscore plugins
 			text: 'assets/text',
 			// jquery plugins
@@ -19,7 +22,8 @@
 			'jquery.carousel3d': 'assets/carrousel3d',
 			'ratingStars' : 'assets/ratingStars',
 			// templates folder
-			templates: '../templates'
+			templates: '../templates',
+			config: 'config'
 		},
 
 		// Since Backbone is not AMD compatible, it needs jquery and underscore to load
@@ -35,6 +39,9 @@
 			},
 			holder: {
 				exports: 'Holder'
+			},
+			facebook: {
+				exports: 'FB'
 			},
 			'jquery.imagesLoaded': {
 				deps: ['jquery'],
@@ -60,7 +67,7 @@
 	define('masonry', [], function () { return root.Masonry; });
 	define('moment', [], function () { return root.moment; });
 
-	require(['App'], function (App) {
+	require(['App', 'fb'], function (App, fb) {
 		console.log("Bootstrapping app...");
 		App.initialize();
 	});

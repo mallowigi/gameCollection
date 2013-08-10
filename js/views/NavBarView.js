@@ -8,7 +8,9 @@ define(['backbone', 'bootstrap',
 ], function (Backbone, Bootstrap, navLogged, navUnlogged) {
 	// Create the navBar View
 	var NavBarView = Backbone.View.extend({
-		el: '#navbar-menu',
+		// We are creating the element, not attaching to an existing one
+		id: 'navbar-menu',
+		className: 'navbar-menu',
 		consolesMenu: '#consoles-menu',
 		user: {},
 
