@@ -7,7 +7,8 @@
 	require.config({
 		baseUrl: 'js',
 		paths: {
-			underscore: 'assets/underscore', // todo use min version
+			jquery: 'assets/jquery',
+			underscore: 'assets/underscore-min',
 			backbone: 'assets/backbone',
 			bootstrap: 'assets/bootstrap.min',
 			holder: 'assets/holder',
@@ -63,7 +64,6 @@
 	});
 
 	// These deps are defined in the index.html, so we define it here
-	define('jquery', [], function () { return root.jQuery; });
 	define('masonry', [], function () { return root.Masonry; });
 	define('moment', [], function () { return root.moment; });
 

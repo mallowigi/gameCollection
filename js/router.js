@@ -4,8 +4,9 @@
 define([
 	'backbone',
 	'ViewManager',
+	'config',
 	'views/GameListPageView'
-], function (Backbone, ViewManager, GameListPageView) {
+], function (Backbone, ViewManager, config, GameListPageView) {
 	// Define a router object
 	var Router = Backbone.Router.extend({
 		routes: {
@@ -20,7 +21,7 @@ define([
 			console.log("Initializing router");
 			// The view manager (idea picked from Marionette)
 			this.viewManager = new ViewManager();
-			Backbone.history.start()
+
 		},
 		openAppView: function () {
 			console.log("Opening app view");

@@ -1,23 +1,38 @@
 /**
  * Created by Elior on 15/07/13.
  */
-define(['backbone', 'config'], function (BackBone, config) {
+define(['backbone'], function (BackBone) {
 	var User = BackBone.Model.extend({
 		defaults: {
 			name: 'Anonymous',
-			url: config.baseURI + this.name,
+			url: this.name,
 			consoles: ['Wii', 'PS3'],
-			listType: "list"
+			listType: "list",
+			isLogged: false
 		},
-		url: config.baseURI + this.name,
+		urlRoot: function () {
+			if (this.isNew()) {
+				return "/api/user/" + this.get('name');
+			}
+			else {
+				return "/api/user/" + this.id;
+			}
+		},
+		//		url: function(){
+		//			console.log(this.id);
+		//			console.log(this.get("name"));
+		//			if (this.isNew()){
+		//				return this.urlRoot;
+		//			}
+		//			else{
+		//				return this.urlRoot + this.id;
+		//			}
+		//		},
 
-		validate: function(attrs){
+		validate: function (attrs) {
 			// check if the given name is not already taken
-		},
-
-		getName: function(){
-			return this.get("name");
 		}
+
 	});
 
 	return User;

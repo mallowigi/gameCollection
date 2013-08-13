@@ -3,9 +3,10 @@
  */
 define(['backbone', 'bootstrap',
 	// add models and collections here
+	'models/Session',
 	'text!templates/navbarLogged.html',
 	'text!templates/navbarUnlogged.html'
-], function (Backbone, Bootstrap, navLogged, navUnlogged) {
+], function (Backbone, Bootstrap, Session, navLogged, navUnlogged) {
 	// Create the navBar View
 	var NavBarView = Backbone.View.extend({
 		// We are creating the element, not attaching to an existing one
@@ -15,9 +16,9 @@ define(['backbone', 'bootstrap',
 		user: {},
 
 		initialize: function () {
-			_.bindAll(this); // So when putting the render method as a callback, it doesnt mess up the this
+			_.bindAll(this, 'render'); // So when putting the render method as a callback, it doesnt mess up the this
 			this.user = this.model; // So we don't need to set the model
-			console.log("Inits NavBarView with user: " + this.user.getName());
+			console.log("Inits NavBarView with user: " + this.user.get('name'));
 		},
 
 		events: {
