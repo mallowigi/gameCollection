@@ -32,7 +32,20 @@ define(['backbone',
 	};
 
 	/**
+	 * Veeeeery simplified region management from Marionette. Return a jQuery element of a region
+	 * @param regName the region
+	 */
+	Backbone.View.prototype.getRegion = function (regName) {
+		if (this.regions) {
+			// Find the region regName and encapsulate it in a jquery object relatively to $el
+			return this.$el.find(this.regions[regName]);
+		}
+		return undefined;
+	};
+
+	/**
 	 * Main Idea from Derick Bailey http://lostechies.com/derickbailey/2011/09/15/zombies-run-managing-page-transitions-in-backbone-apps/
+	 * This, along with the close method defined previously, ensures that a view is closed before creating it.
 	 */
 	var ViewManager = Backbone.View.extend({
 

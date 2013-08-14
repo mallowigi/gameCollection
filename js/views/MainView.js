@@ -14,22 +14,25 @@ define(['backbone',
 	var MainView = Backbone.View.extend({
 		el: 'body',
 		id: 'mainView',
-		app: '#app',
-		navbar: '#navbar-inner',
 		user: new User(),
 
 		template: _.template(mainViewTemplate),
-		views: {},
+
+		// Store our subviews (idea picked from Marionette)
+		regions: {
+			main: '#app',
+			navBar: '#navbar-inner'
+		},
+		views: [],
 
 		initialize: function () {
-			var that = this;
 			_.bindAll(this, 'render'); // So when putting the render method as a callback, it doesnt mess up the this
 			console.log("Initiating MainView");
 
 			// Get subviews templates containers
 			// This doesnt work because the template is not yet added to the dom at this time
-//			this.$app = $(this.app);
-//			this.$navbar = $(this.navbar);
+			//			this.$app = $(this.app);
+			//			this.$navbar = $(this.navbar);
 
 			// When the Session receive a change in authentication, fetch the user and render page
 			this.listenTo(Session, "change:auth", this.fetchUser);
@@ -43,14 +46,20 @@ define(['backbone',
 		},
 
 		login: function () {
-			// Disable the button
 			var creds = { username: 'hello' };
-			Session.login(creds);
-			return false;
+			Session.login(creds, function () {
+				// Disable the button
+				$('#loginl').hide();
+				$('#logout').show();
+			});
 		},
 
 		logout: function () {
-			Session.logout();
+			Session.logout(function () {
+				// Disable the button
+				$('#logout').hide();
+				$('#loginl').show();
+			});
 			this.user.set('isLogged', false);
 		},
 
@@ -67,7 +76,10 @@ define(['backbone',
 			var navBarView = new NavBarView({
 				model: user
 			});
-			$(this.navbar).append(navBarView.getRenderedView());
+
+			// Store the subview
+			this.views.push(navBarView);
+			this.getRegion('navbar').append(navBarView.getRenderedView());
 		},
 
 		/**
@@ -80,17 +92,21 @@ define(['backbone',
 			var mainContentView = new MainContentView({
 				model: user
 			});
-			$(this.app).append(mainContentView.getRenderedView());
+			// Store the subview
+			this.views.push(mainContentView);
+			this.getRegion('app').append(mainContentView.getRenderedView());
 		},
 
 		fetchUser: function () {
+			var that = this;
 			// If the user is authenticated and logged in, fetch the data
 			if (Session.get("auth")) {
 				// fetch user data
 				// The set is important because if i create a new user I lose the bound events
 				this.user.set({name: Session.get('username')});
-				this.user.fetch({update: true});
-				console.log("Logged in: " + this.user.get('name'));
+				this.user.fetch().then(function () {
+					console.log("Logged in: " + that.user.get('name'));
+				})
 			}
 			else {
 				console.log("Logged out");
@@ -98,9 +114,7 @@ define(['backbone',
 		},
 
 		render: function () {
-
 			console.log("Rendering MainView (user: " + this.user.get('name') + ")");
-			console.log(this.user.get('isLogged'));
 			this.$el.html(this.template);
 
 			// Inits and renders the navBarView
