@@ -8,17 +8,19 @@
 		baseUrl: 'js',
 		paths: {
 			jquery: 'assets/jquery',
+			bootstrap: 'assets/bootstrap.min',
 			underscore: 'assets/underscore-min',
 			backbone: 'assets/backbone',
-			bootstrap: 'assets/bootstrap.min',
-			holder: 'assets/holder',
+			// backbone plugins
+			crossdomain: 'assets/backbone.crossdomain',
 			// facebook integration
 			'facebook': '//connect.facebook.net/en_US/all/debug',
 			'fb': 'assets/fb',
 			// underscore plugins
 			text: 'assets/text',
 			// jquery plugins
-			'jquery.imagesLoaded': "//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min",
+			holder: 'assets/holder',
+			'jquery.imagesLoaded': "//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/2.1.0/jquery.imagesloaded.min", // todo download it
 			'jquery.colorbox': 'assets/jquery.colorbox',
 			'jquery.carousel3d': 'assets/carrousel3d',
 			'ratingStars' : 'assets/ratingStars',

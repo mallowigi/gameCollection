@@ -3,47 +3,37 @@
  * The app bootstrapping
  */
 define(['backbone',
+	'models/Session',
 	'Router',
 	'config',
-	'models/Session',
-	'views/MainView'
-], function (Backbone, Router, config, Session, MainView) {
+	'views/MainView',
+	'crossdomain'
+], function (Backbone, Session, Router, config, MainView) {
 	return {
 		initialize: function () {
-			// Rewrite sync to include the server's address and CORS
-			var sync = Backbone.sync;
-			Backbone.sync = function (method, model, options) {
-				options = options || {};
-				if (!options.crossDomain) {
-					options.crossDomain = true;
-				}
-				if (!options.xhrFields) {
-					options.xhrFields = {withCredentials: true};
-				}
+			console.log("Initializing the routes");
+			var router = new Router();
 
-				return sync(method, model, options);
-			};
-
+			// Ajax Prefilter to include server url for ajax requests
 			$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
 				options.url = config.serverUrl + options.url;
 			});
 
-			console.log("Creating MainView");
-			new MainView().render();
+			// Call session start
+			this.sessionStart();
+		},
 
-			// Similar to php session start
-			Session.getSession(this.sessionStart, this.failSessionStart);
-
+		// Similar to php session start. If the session auth failed, do not start Backbone.history
+		sessionStart: function () {
+			Session.getSession(this.successSessionStart, this.failSessionStart, this.renderMainView);
 		},
 
 		/**
-		 * Start a session and initializes the app
+		 * A session has been created: the router is init
 		 */
-		sessionStart: function (data) {
+		successSessionStart: function () {
 			console.log("Authentication successful");
-
-			console.log("Initializing the routes");
-			var router = new Router();
+			Backbone.history.start();
 		},
 
 		/**
@@ -53,6 +43,16 @@ define(['backbone',
 		failSessionStart: function () {
 			// Show the landing page
 			console.log("Authentication failed");
+			Backbone.history.stop();
+		},
+
+		/**
+		 * What to do anyway: render the main view which will give two different pages according to auth
+		 */
+		renderMainView: function () {
+			console.log("Creating MainView");
+			new MainView().render();
+
 		}
 	}
 });
