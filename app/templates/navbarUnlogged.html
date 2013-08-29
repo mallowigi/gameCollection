@@ -1,0 +1,46 @@
+<ul class="nav pull-right">
+    <li>
+        <button class="btn btn-info signin-btn">Sign Up</button>
+    </li>
+    <li class="signin">
+        <button class="btn btn-primary signin-btn" id="login-btn" role="button" data-toggle="modal" data-target="#login-modal">Login</button>
+        <div id="login-modal" class="modal hybrid-modal hide fade" data-backdrop="false">
+            <form action="#" method="post" id="login-form">
+                <ul>
+                    <li class="modal-header">
+                        <h4>Connect using:</h4>
+                    </li>
+                    <li>
+                        <div id="social">
+                            <button class="btn">Facebook</button>
+                            <button class="btn">Twitter</button>
+                            <button class="btn">Google+</button>
+                        </div>
+                    </li>
+                    <li class="divider">
+                        <hr/>
+                        <span>Or : </span>
+                    </li>
+                    <li>
+                        <div id="logincreds">
+                            <input type="text" id="username" name="username" placeholder="Username" autocomplete/>
+                            <input type="password" id="password" name="password" placeholder="Password"/>
+                        </div>
+                    </li>
+                    <li id="errorMsg" class="loginerror">
+                        <div id="divErrors"></div>
+                    </li>
+                    <li>
+                        <button id="login" class="btn-primary btn">Login</button>
+                    </li>
+                    <li class="forgot-pwd">
+                        <a href="/#/forgot">Forgot username or password?</a>
+                    </li>
+
+                </ul>
+
+            </form>
+        </div>
+
+    </li>
+</ul>

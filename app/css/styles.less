@@ -1,0 +1,192 @@
+@import "imports/functions";
+@import "imports/newstyles";
+
+@font: Helvetica, Arial, sans-serif;
+
+@textColor: #999;
+@headerColor: #ffffff;
+/* Silver gray */
+@headColor: #adafae;
+/* Cobalt */
+@linkColor: #33B5E5;
+/* Jet Black */
+@bgColor: silver;
+//@bgColor: #121417;
+/* Jet Black 2 */
+@wellColor: #131517;
+/* Light Gray */
+@insetBorder: #2f2f2f;
+/* Black */
+@outsetBorder: #030303;
+
+@ratingStar: "../img/ratingStar.gif";
+
+body {
+  font-family: @font;
+  font-size: 13px;
+  background: @bgColor;
+}
+
+table {
+  table-layout: fixed;
+}
+
+#app {
+  padding: 10px;
+}
+
+.table {
+  background-color: #ffffff;
+}
+
+.hidden-buttons {
+  display: none;
+}
+
+.table-hover tbody tr:hover .hidden-buttons {
+  display: block;
+}
+
+.signin {
+  margin-left: 20px;
+}
+
+.signin-btn {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.hybrid-modal {
+  position: absolute;
+  background-color: white;
+  background-clip: padding-box;
+  margin-left: 0;
+}
+
+#login-modal {
+  top: 50px;
+  width: 240px;
+  margin-left: -50px;
+  left: 0;
+  text-align: center;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px;
+  }
+}
+
+#login-modal .divider {
+  margin: 22px 0 -6px 0;
+  hr {
+    margin: 10px 0;
+    border-bottom: 1px solid #C1C1C1;
+  }
+  span {
+    background: white;
+    position: relative;
+    top: -20px;
+    padding: 0 10px;
+  }
+}
+
+#login-modal .forgot-pwd {
+  margin: 20px 0 0 0;
+}
+
+#logincreds {
+  input {
+    width: 190px;
+  }
+}
+
+#login-fb {
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px;
+  .box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3));
+  background-color: #355A9A;
+  background-image: -webkit-linear-gradient(top, #5E88D3, #355A9A);
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);
+}
+
+// ----------------- Show a X when a field is failed ----------------
+
+.error-field {
+  background-image: url("//d7mj4aqfscim2.cloudfront.net/images/input-error-image_mv_292faa1d5a378c889852c46ab53c4f5a.png") !important;
+  background-position: center right !important;
+  background-repeat: no-repeat !important;
+}
+
+.loginerror {
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+
+// -------------------- Rating Stars styles -----------------
+// TODO Put this on its own file
+
+@starWidth: 28px;
+@starHeight: 28px;
+@silverStarX: 0;
+@silverStarY: 0;
+@goldStarX: 0;
+@goldStarY: -28px;
+
+.star {
+  background-image: url(@ratingStar);
+  background-repeat: no-repeat;
+  width: @starWidth;
+  height: @starHeight;
+  margin: 0;
+  display: inline-block;
+}
+
+.star-gold, .star-half {
+  background-position: @goldStarX @goldStarY;
+}
+
+.star-silver {
+  background-position: @silverStarX @silverStarY;
+}
+
+// todo find a better way
+.star-half:after {
+  content: "";
+  position: absolute;
+  width: @starWidth / 2;
+  height: @starHeight;
+  background-image: url(@ratingStar);
+  background-position: (@silverStarX + (@starWidth / 2)) @silverStarY;
+  margin-left: (@silverStarX + (@starWidth / 2));
+}
+
+/* ********************* Loading spinner ****************/
+#pagination {
+  padding: 25px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+//#pagination_failure {
+//  background: linear-gradient(to bottom, darkred, crimson);
+//}
+//
+//#pagination_none {
+//  background: linear-gradient(to bottom, #020202, #000000);
+//  color: white;
+//}
+
+#pagination #spinner {
+  width: 32px;
+  height: 33px;
+  background: url('../img/spinner.gif');
+  vertical-align: -5px;
+  margin-right: 10px;
+  display: inline-block;
+
+}
