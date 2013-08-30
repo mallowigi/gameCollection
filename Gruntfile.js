@@ -162,6 +162,7 @@ module.exports = function (grunt) {
 		// Automatically install bower deps into require.config
 		bower: {
 			all: {
+				baseUrl: '<%= yeoman.app %>/',
 				rjsConfig: '<%= yeoman.app %>/src/main.js'
 			}
 		},

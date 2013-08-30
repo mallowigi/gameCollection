@@ -16,6 +16,7 @@
     "text": "~2.0.10",
     "backbone.crossdomain": "~0.3.0",
     "backbone.validator": "*",
-    "colorbox": "~1.4.27"
+    "colorbox": "~1.4.27",
+    "layoutmanager": "~0.9.1"
   }
 }
