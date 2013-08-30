@@ -69,8 +69,16 @@ require.config({
 	}
 });
 
-require(['App', 'config'], function (App) {
+require([
+	'backbone',
+	'App',
+	'routers/AppRouter'
+], function (Backbone, App, AppRouter) {
 	'use strict';
-	console.log('Starting Application');
-	App.initialize();
+	App.start();
+
+	console.log("Start History at " + App.root);
+	App.router = new AppRouter();
+//	Backbone.history.start({pushState: true, root: App.root}); // todo need to be handled server side
+	Backbone.history.start();
 });

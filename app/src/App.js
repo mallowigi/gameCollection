@@ -1,7 +1,63 @@
 /**
  * Created by Elior on 30/08/13.
  */
-define(['backbone', 'layoutmanager'], function (Backbone, LayoutManager) {
+define(['backbone',
+	'layoutmanager'
+], function (Backbone, LayoutManager) {
+	"use strict";
+
+	//region Prototype extensions
+	/**
+	 * Closes a view and unbind its events. (Idea from marionette)
+	 */
+	Backbone.View.prototype.close = function () {
+		// If the view has registered subviews, close the subviews before closing the view.
+		if (this.views) {
+			_.each(this.views, function (view) {
+				view.close();
+			});
+		}
+
+		this.remove();
+		this.unbind();
+		// Custom method onClose that views can implement to add disposal code
+		if (this.onClose) {
+			this.onClose();
+		}
+
+	};
+
+	/**
+	 * Renders a view and return the html rendered
+	 * @returns {string} the html rendered
+	 */
+	Backbone.View.prototype.getRenderedView = function () {
+		return this.render().el;
+	};
+
+	/**
+	 * Veeeeery simplified region management from Marionette. Return a jQuery element of a region
+	 * @param regName the region
+	 */
+	Backbone.View.prototype.getRegion = function (regName) {
+		if (this.regions) {
+			// Find the region regName and encapsulate it in a jquery object relatively to $el
+			return this.$el.find(this.regions[regName]);
+		}
+		return undefined;
+	};
+
+	/**
+	 * Renders the view and store an instance inside
+	 */
+	LayoutManager.prototype.renderView = function () {
+		"use strict";
+		if (this.currentView) {
+			this.currentView.close();
+		}
+		this.currentView = view;
+		this.currentView.render();
+	};
 
 	// Configure LayoutManager with Backbone Boilerplate defaults.
 	LayoutManager.configure({
@@ -42,13 +98,17 @@ define(['backbone', 'layoutmanager'], function (Backbone, LayoutManager) {
 
 	});
 
-	var App = Backbone.View.extend({
+	//endregion
+
+	//region App definition
+
+	var App = {
 		el: '#main',
 		root: '/',
 		events: {
-			"click a[href]:not([data-bypass])": "hijackLinks"
+			"click a[href]:not([data-bypass])": "routeLinks"
 		},
-		hijackLinks: function (ev) {
+		routeLinks: function (ev) {
 			// Get the absolute anchor href.
 			var $link = $(ev.currentTarget);
 			var href = {
@@ -70,6 +130,17 @@ define(['backbone', 'layoutmanager'], function (Backbone, LayoutManager) {
 				Backbone.history.navigate(href.attr, true);
 			}
 		}
-	});
-	return new App();
+	};
+
+	/**
+	 * Application start; Usually after module loading
+	 * Here we can for instance load the session?
+	 */
+	App.start = function(){
+		console.log("Starting the App");
+	};
+
+	//endregion
+
+	return App;
 });
