@@ -1,0 +1,42 @@
+.bg-gradient(@first; @second; @direction: to bottom) {
+  background-image: linear-gradient(@direction, @first, @second);
+  background-image: -o-linear-gradient(@direction, @first, @second);
+  background-image: -moz-linear-gradient(@direction, @first, @second);
+  background-image: -webkit-linear-gradient(@direction, @first, @second);
+  background-image: -ms-linear-gradient(@direction, @first, @second);
+}
+
+.box-shadow(@color; @x: 5px; @y: 5px; @blur: 5px) {
+  -webkit-box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  box-shadow: @arguments;
+}
+
+.border-radius(@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.wrap () {
+  text-wrap: wrap;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  word-wrap: break-word;
+}
+
+.animation(@anim) {
+  -webkit-animation: @anim @arguments;
+  -o-animation: @anim @arguments;
+  animation: @anim @arguments;
+}
+
+.transform(@arguments) {
+  -webkit-transform: @arguments;
+  -ms-transform: @arguments;
+  -o-transform: @arguments;
+  transform: @arguments;
+}
+
+
+
