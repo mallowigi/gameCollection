@@ -8,17 +8,17 @@ var mountFolder = function (connect, dir) {
 };
 
 module.exports = function (grunt) {
-	// show elapsed time at the end
-	require('time-grunt')(grunt);
-	// load all grunt tasks
-	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
 	// configurable paths
 	var yeomanConfig = {
 		app: 'app',
 		dist: 'dist',
 		tmp: 'tmp'
 	};
+	// show elapsed time at the end
+	require('time-grunt')(grunt);
+
+	// load all grunt tasks
+	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	grunt.initConfig({
 		yeoman: yeomanConfig,
@@ -293,10 +293,10 @@ module.exports = function (grunt) {
 			//				files: ['<%= yeoman.app %>/src/**/*.js'],
 			//				tasks: ['jshint']
 			//			},
-//			less: {
-//				files: ['<%= yeoman.app %>/styles/**/*.less'],
-//				tasks: ['less']
-//			},
+			//			less: {
+			//				files: ['<%= yeoman.app %>/styles/**/*.less'],
+			//				tasks: ['less']
+			//			},
 			//			hbs: {
 			//				files: ['<%= yeoman.app %>/templates/**/*.hbs'],
 			//				tasks: ['handlebars']
@@ -320,7 +320,7 @@ module.exports = function (grunt) {
 				files: [
 					'<%= yeoman.app %>/index.html',
 					'<%= yeoman.app %>/styles/{,*/}*.css',
-					'<%= yeoman.app %>/src/{,*/}*.js',
+					'<%= yeoman.app %>/src/**/*.js',
 					'<%= yeoman.app %>/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
 				]
 			}
@@ -329,7 +329,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('server', function (target) {
 		if (target === 'dist') {
-			return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+			grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
 		}
 
 		grunt.task.run([

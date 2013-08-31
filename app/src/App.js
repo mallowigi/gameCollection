@@ -1,10 +1,16 @@
 /**
  * Created by Elior on 30/08/13.
  */
-define(['backbone',
-	'layoutmanager'
-], function (Backbone, LayoutManager) {
-	"use strict";
+/* global define, _, $ */
+define([
+	'require',
+	'backbone',
+	'layoutmanager',
+	'views/layouts/HeaderView',
+	'views/layouts/FooterView',
+	'views/layouts/MainView'
+], function (require, Backbone, LayoutManager, HeaderView, FooterView, MainView) {
+	'use strict';
 
 	//region Prototype extensions
 	/**
@@ -27,45 +33,13 @@ define(['backbone',
 
 	};
 
-	/**
-	 * Renders a view and return the html rendered
-	 * @returns {string} the html rendered
-	 */
-	Backbone.View.prototype.getRenderedView = function () {
-		return this.render().el;
-	};
-
-	/**
-	 * Veeeeery simplified region management from Marionette. Return a jQuery element of a region
-	 * @param regName the region
-	 */
-	Backbone.View.prototype.getRegion = function (regName) {
-		if (this.regions) {
-			// Find the region regName and encapsulate it in a jquery object relatively to $el
-			return this.$el.find(this.regions[regName]);
-		}
-		return undefined;
-	};
-
-	/**
-	 * Renders the view and store an instance inside
-	 */
-	LayoutManager.prototype.renderView = function () {
-		"use strict";
-		if (this.currentView) {
-			this.currentView.close();
-		}
-		this.currentView = view;
-		this.currentView.render();
-	};
-
 	// Configure LayoutManager with Backbone Boilerplate defaults.
 	LayoutManager.configure({
 		// Allow LayoutManager to augment Backbone.View.prototype.
 		manage: true,
 
 		// Indicate where templates are stored.
-		prefix: "templates/",
+		prefix: 'templates/',
 
 		// This custom fetch method will load pre-compiled templates or fetch them
 		// remotely with AJAX.
@@ -74,14 +48,16 @@ define(['backbone',
 			var Handlebars = require("handlebars");
 
 			// Concatenate the file extension.
-			path = path + ".hbs";
+			if (path.indexOf('.hbs') === -1) {
+				path += '.hbs';
+			}
 
 			// If cached, use the compiled template.
 			if (JST && JST[path]) {
 				// If the template hasn't been compiled yet, then compile.
-				if (!JST[path].__compiled__) {
+				if (!JST[path].compiled) {
 					JST[path] = Handlebars.template(JST[path]);
-					JST[path].__compiled__ = true;
+					JST[path].compiled = true;
 				}
 
 				return JST[path];
@@ -93,30 +69,34 @@ define(['backbone',
 			// Seek out the template asynchronously.
 			$.get(path, function (contents) {
 				done(Handlebars.compile(contents));
-			}, "text");
+			}, 'text');
 		}
 
 	});
 
 	//endregion
 
-	//region App definition
+	var AppLayout = Backbone.Layout.extend({
+		el: '#app',
+		template: 'layouts/appLayout',
 
-	var App = {
-		el: '#main',
-		root: '/',
+		views: {
+			'#header': new HeaderView(),
+			'#main': new MainView(),
+			'#footer': new FooterView()
+		},
 		events: {
-			"click a[href]:not([data-bypass])": "routeLinks"
+			'click a[href]:not([data-bypass])': 'routeLinks'
 		},
 		routeLinks: function (ev) {
 			// Get the absolute anchor href.
 			var $link = $(ev.currentTarget);
 			var href = {
-				prop: $link.prop("href"),
-				attr: $link.attr("href")
+				prop: $link.prop('href'),
+				attr: $link.attr('href')
 			};
 			// Get the absolute root.
-			var root = location.protocol + "//" + location.host + this.root;
+			var root = location.protocol + '//' + location.host + this.root;
 
 			// Ensure the root is part of the anchor href, meaning it's relative.
 			if (href.prop.slice(0, root.length) === root) {
@@ -130,17 +110,20 @@ define(['backbone',
 				Backbone.history.navigate(href.attr, true);
 			}
 		}
-	};
+	});
+
+	var App = {root: '/'};
 
 	/**
-	 * Application start; Usually after module loading
-	 * Here we can for instance load the session?
+	 * Application start
 	 */
-	App.start = function(){
-		console.log("Starting the App");
-	};
+	App.start = function () {
+		console.log('Starting the App');
+		var appLayout = new AppLayout();
 
-	//endregion
+		console.log('Rendering AppLayout');
+		appLayout.render();
+	};
 
 	return App;
 });
