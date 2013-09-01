@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+	// Configure requireJS
 	require.config({
 		baseUrl: 'src',
 		paths: {
@@ -25,6 +26,7 @@
 			requirejs: '../vendor/requirejs/require',
 			handlebars: '../vendor/handlebars/handlebars',
 			'handlebars.runtime': '../vendor/handlebars/handlebars.runtime',
+			'swag': '../vendor/swag/lib/swag',
 			item: '../vendor/outlayer/item',
 			outlayer: '../vendor/outlayer/outlayer',
 			'backbone.validator': '../vendor/backbone.validator/src/backbone.validator',
@@ -40,6 +42,10 @@
 			},
 			handlebars: {
 				exports: 'Handlebars'
+			},
+			swag: {
+				deps: ['handlebars'],
+				exports: 'Swag'
 			},
 			backbone: {
 				deps: [
@@ -76,15 +82,18 @@
 		}
 	});
 
+	// Configure Handlebars
+	require(['handlebars-helpers'], function (Handlebars) {
+		Handlebars.registerHelpers();
+	});
+
 	require([
 		'backbone',
 		'App',
-		'routers/AppRouter'
+		'routers/AppRouter',
+		'backbone-extensions'
 	], function (Backbone, App, AppRouter) {
-		App.start();
-
-		console.log('Start History at ' + App.root);
-		App.router = new AppRouter();
+		App.router = new AppRouter(App);
 		//	Backbone.history.start({pushState: true, root: App.root}); // todo need to be handled server side
 		Backbone.history.start();
 	});

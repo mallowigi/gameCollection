@@ -2,12 +2,24 @@
  * Created by Elior on 30/08/13.
  */
 /* global define */
-define(['backbone'], function (Backbone) {
+define([
+	'backbone',
+	'views/layouts/HeaderView',
+	'views/layouts/FooterView',
+	'views/layouts/MainView'
+], function (Backbone, HeaderView, FooterView, MainView) {
 	'use strict';
 	// Define a router object
 	var AppRouter = Backbone.Router.extend({
-		initialize: function(){
+		initialize: function (app) {
 			console.log('Router init');
+
+			console.log('Rendering App Layout');
+			app.useLayout().setViews({
+				'#header': new HeaderView(),
+				'#footer': new FooterView(),
+				'#main': new MainView()
+			}).render();
 		},
 
 		routes: {

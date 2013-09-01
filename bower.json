@@ -1,22 +1,28 @@
 {
-  "name": "myGameCollection",
-  "version": "0.1.1",
-  "main": "app/src/main",
-  "dependencies": {
-    "backbone": "~1.0.0",
-    "bootstrap": "~2.3.2",
-    "holderjs": "~1.9.0",
-    "jquery": "~2.0.3",
-    "masonry": "~3.1.1",
-    "moment": "~2.1.0",
-    "requirejs": "~2.1.8",
-    "underscore": "~1.5.1",
-    "handlebars": "~1.0.0",
-    "modernizr": "~2.6.2",
-    "text": "~2.0.10",
-    "backbone.crossdomain": "~0.3.0",
-    "backbone.validator": "*",
-    "colorbox": "~1.4.27",
-    "layoutmanager": "~0.9.1"
-  }
+	"name": "myGameCollection",
+	"version": "0.1.1",
+	"main": "app/src/main",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"**/vendor"
+	],
+	"dependencies": {
+		"backbone": "~1.0.0",
+		"bootstrap": "~2.3.2",
+		"holderjs": "~1.9.0",
+		"jquery": "~2.0.3",
+		"masonry": "~3.1.1",
+		"moment": "~2.1.0",
+		"requirejs": "~2.1.8",
+		"underscore": "~1.5.1",
+		"handlebars": "~1.0.0",
+		"modernizr": "~2.6.2",
+		"text": "~2.0.10",
+		"backbone.crossdomain": "~0.3.0",
+		"backbone.validator": "*",
+		"colorbox": "~1.4.27",
+		"layoutmanager": "~0.9.1",
+		"swag": "~0.3.1"
+	}
 }
