@@ -1,0 +1,60 @@
+@import "themes/savannah";
+
+// Scaffolding
+// -------------------------
+@bodyBackground: @colorBackground;
+@textColor: @colorText;
+
+// Links
+// -------------------------
+@linkColor: @colorLink;
+@linkColorHover: @colorLinkHover;
+
+// Typography
+// -------------------------
+@sansFontFamily: @sansFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+@serifFontFamily: @serifFont, Georgia, "Times New Roman", Times, serif;
+@monoFontFamily: @monoFont, Monaco, Menlo, Consolas, "Courier New", monospace;
+
+@baseFontSize: @baseSize;
+
+// Tables
+// -------------------------
+@tableBackgroundAccent: @colorStripe;
+// for striping
+@tableBackgroundHover: @colorTableHover;
+// for hover
+
+// Buttons
+// -------------------------
+@btnBackground: @colorButtonBg;
+@btnBackgroundHighlight: @colorButtonBgHover;
+
+@btnPrimaryBackground: @colorButtonPrimary;
+@btnPrimaryBackgroundHighlight: @colorButtonPrimaryHover;
+
+@btnInfoBackground: @colorButtonInfo;
+@btnInfoBackgroundHighlight: @colorButtonInfoHover;
+
+@btnSuccessBackground: @colorButtonSuccess;
+@btnSuccessBackgroundHighlight: @colorButtonSuccessHover;
+
+@btnWarningBackground: @colorButtonWarning;
+@btnWarningBackgroundHighlight: @colorButtonWarningHover;
+
+@btnDangerBackground: @colorButtonError;
+@btnDangerBackgroundHighlight: @colorButtonErrorHover;
+
+// Navbar
+// -------------------------
+
+@navbarBackgroundHighlight: @colorNavBarHl;
+@navbarBackground: darken(@navbarBackgroundHighlight, 5%);
+@navbarBorder: darken(@navbarBackground, 12%);
+
+@navbarText: @colorNavBarText;
+@navbarLinkColor: @colorLink;
+@navbarLinkColorHover: @colorLinkHover;
+@navbarLinkColorActive: @gray;
+@navbarLinkBackgroundHover: transparent;
+@navbarLinkBackgroundActive: darken(@navbarBackground, 5%);
