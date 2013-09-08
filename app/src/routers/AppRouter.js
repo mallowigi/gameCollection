@@ -3,23 +3,13 @@
  */
 /* global define */
 define([
-	'backbone',
-	'views/layouts/HeaderView',
-	'views/layouts/FooterView',
-	'views/layouts/MainView'
-], function (Backbone, HeaderView, FooterView, MainView) {
+	'backbone'
+], function (Backbone) {
 	'use strict';
 	// Define a router object
 	var AppRouter = Backbone.Router.extend({
-		initialize: function (app) {
+		initialize: function () {
 			console.log('Router init');
-
-			console.log('Rendering App Layout');
-			app.useLayout().setViews({
-				'#header': new HeaderView(),
-				'#footer': new FooterView(),
-				'#main': new MainView()
-			}).render();
 		},
 
 		routes: {

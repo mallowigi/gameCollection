@@ -24,7 +24,10 @@
     <!-- endbuild -->
 </head>
 <body>
-    <div id="app"></div>
+    <!--The main placeholder-->
+    <div id="app">
+
+    </div>
 
     <!--[if lt IE 7]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your
@@ -35,7 +38,7 @@
     <script>
         WebFontConfig = {
             google: {
-                families: ['Lato', 'Droid Sans', 'New Rocker']
+                families: ['Lato', 'Droid Sans']
             }
         };
 
@@ -62,6 +65,10 @@
             s.parentNode.insertBefore(g, s)
         }(document, 'script'));
     </script>
+
+    <!-- build:js src/config.js -->
+    <script src="src/config.js"></script>
+    <!-- endbuild -->
 
     <!-- build:js src/main.js -->
     <script data-main="src/main" src="vendor/requirejs/require.js"></script>

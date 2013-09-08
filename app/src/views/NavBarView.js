@@ -12,16 +12,9 @@ define(['backbone'
 
 		initialize: function () {
 			console.log('Initiating NavBarView');
-			// todo remove that
-			this.model = new Backbone.Model({
-				name: 'Dupuis',
-				consoles: ['Wii', 'PS2']
-			});
-
 		},
 
 		serialize: function () {
-			console.log(this.model.toJSON());
 			return this.model.toJSON();
 		}
 	});

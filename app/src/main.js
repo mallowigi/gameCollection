@@ -8,7 +8,6 @@
 			carousel3d: 'assets/libs/carrousel3d',
 			ratingStars: 'assets/libs/ratingStars',
 			templates: '../templates',
-			config: 'config',
 			backbone: '../vendor/backbone/backbone',
 			bootstrap: '../vendor/bootstrap/docs/assets/js/bootstrap',
 			eventEmitter: '../vendor/eventEmitter/EventEmitter',
@@ -36,10 +35,8 @@
 			text: '../vendor/text/text',
 			layoutmanager: '../vendor/layoutmanager/backbone.layoutmanager'
 		},
+		// Shim configs
 		shim: {
-			config: {
-				exports: 'config'
-			},
 			handlebars: {
 				exports: 'Handlebars'
 			},
@@ -82,19 +79,27 @@
 		}
 	});
 
+	// Configure layout Manager
+	require(['config/LayoutManagerConfig'], function (LayoutManagerConfig) {
+		LayoutManagerConfig.configure();
+	});
+
 	// Configure Handlebars
-	require(['handlebars-helpers'], function (Handlebars) {
+	require(['config/handlebars-helpers'], function (Handlebars) {
 		Handlebars.registerHelpers();
 	});
 
+	// Extend Backbone classes
+	require(['config/backbone-extensions'], function () {});
+
+	// Main start
 	require([
-		'backbone',
-		'App',
-		'routers/AppRouter',
-		'backbone-extensions'
-	], function (Backbone, App, AppRouter) {
-		App.router = new AppRouter(App);
+		'App'
+	], function (App) {
+		console.log('Starting application');
+
+		//		App.router = new AppRouter(App);
+		App.start();
 		//	Backbone.history.start({pushState: true, root: App.root}); // todo need to be handled server side
-		Backbone.history.start();
 	});
 })();

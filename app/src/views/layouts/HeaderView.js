@@ -4,8 +4,9 @@
 /* global define */
 define(['backbone',
 	// add models and collections here,
-	'views/NavBarView'
-], function (Backbone, NavBarView) {
+	'views/NavBarView',
+	'models/User'
+], function (Backbone, NavBarView, User) {
 	'use strict';
 	var HeaderView = Backbone.Layout.extend({
 		tagName: 'nav',
@@ -13,11 +14,20 @@ define(['backbone',
 		id: 'navbar',
 		template: 'layouts/headerLayout',
 
-		initialize: function () {
-			console.log('Initiating HeaderView');
-		},
 		views: {
 			'#navbarview': new NavBarView()
+		},
+		initialize: function (options) {
+			console.log('Initiating HeaderView');
+
+			// Create a new user here
+			var user = new User();
+			user.set('isLogged', options.isLogged || false);
+
+			// Assign the user to every subview
+			this.getViews().each(function (view) {
+				view.model = user;
+			});
 		}
 
 	});

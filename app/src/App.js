@@ -1,63 +1,45 @@
 /**
  * Created by Elior on 30/08/13.
  */
-/* global define, _, $ */
+/* global define, config, _, $ */
 define([
 	'backbone',
-	'layoutmanager'
-], function (Backbone, LayoutManager) {
+	'controllers/SessionController'
+], function (Backbone, SessionController) {
 	'use strict';
-	var App = {root: '/'},
-		AppLayout;
 
-	// Configure LayoutManager with Backbone Boilerplate defaults.
-	LayoutManager.configure({
-		// Allow LayoutManager to augment Backbone.View.prototype.
-		manage: true,
+	// -------------------- Initializing jQuery plugins *---------------
 
-		// Indicate where templates are stored.
-		prefix: 'templates/',
-
-		// This custom fetch method will load pre-compiled templates or fetch them
-		// remotely with AJAX.
-		fetchTemplate: function (path) {
-			var JST = window.JST,
-				Handlebars = require('handlebars');
-
-			// Concatenate the file extension.
-			if (path.indexOf('.hbs') === -1) {
-				path += '.hbs';
-			}
-
-			// If cached, use the compiled template.
-			if (JST && JST[path]) {
-				// If the template hasn't been compiled yet, then compile.
-				if (!JST[path].compiled) {
-					JST[path] = Handlebars.template(JST[path]);
-					JST[path].compiled = true;
-				}
-
-				return JST[path];
-			}
-
-			// Put fetch into `async-mode`.
-			var done = this.async();
-
-			// Seek out the template asynchronously.
-			$.get(path, function (contents) {
-				done(Handlebars.compile(contents));
-			}, 'text');
+	// Ajax Prefilter to include server url for ajax requests
+	$.ajaxPrefilter(function (options) {
+		// Only for crossDomain requests, the url will be of the server's
+		if (options.crossDomain) {
+			options.xhrFields = {
+				withCredentials: true
+			};
+			//
+			//				// If we have a csrf token send it through with the next request
+			//				if (typeof that.get('_csrf') !== 'undefined') {
+			//					xhr.setRequestHeader('X-CSRF-Token', that.get('_csrf'));
+			//				}
+			options.url = config.serverUrl + options.url;
 		}
-
+		// Local requests need to change this value
+		options.crossDomain = true;
 	});
 
-	AppLayout = Backbone.Layout.extend({
+	// Inits the Application layout
+	var AppLayout = Backbone.Layout.extend({
 		el: '#app',
-		template: 'layouts/appLayout',
+		//			template: 'layouts/appLayout',
 
 		events: {
 			'click a[href]:not([data-bypass])': 'routeLinks'
 		},
+		/**
+		 * Transform all links to routed links
+		 * @param ev
+		 */
 		routeLinks: function (ev) {
 			// Get the absolute anchor href.
 			var $link = $(ev.currentTarget),
@@ -82,28 +64,39 @@ define([
 		}
 	});
 
-	/**
-	 * Sets the appLayout's views after so it configures first
-	 */
-	return _.extend(App, {
-		// Create a custom object with a nested Views object.
+	// The application
+	var App = {
+		root: '/',
+
+		/**
+		 * Imitates Bailey's module function to create submodules
+		 * @param additionalProps
+		 * @returns {*|Object}
+		 */
 		module: function (additionalProps) {
 			return _.extend({ Views: {} }, additionalProps);
 		},
-		// Helper for using layouts.
-		useLayout: function (name, options) {
+
+		/**
+		 * Dynamically sets app layout at runtime
+		 * @param template the name of the template to load
+		 * @param options the
+		 * @returns {*|Object}
+		 */
+		useLayout: function (template, options) {
 			// Enable variable arity by allowing the first argument to be the options
 			// object and omitting the name argument.
-			if (_.isObject(name)) {
-				options = name;
+
+			if (_.isObject(template)) {
+				options = template;
 			}
 
 			// Ensure options is an object.
 			options = options || {};
 
 			// If a name property was specified use that as the template.
-			if (_.isString(name)) {
-				options.template = name;
+			if (_.isString(template)) {
+				options.template = template;
 			}
 
 			// Create a new Layout with options.
@@ -111,6 +104,16 @@ define([
 
 			// Cache the reference.
 			return this.layout;
+		},
+		/**
+		 * Application start when the dom is loaded
+		 */
+		start: function () {
+			console.log('Calling application.start');
+			// Start the session and router history
+			SessionController.initialize(this);
 		}
-	}, Backbone.Events);
+	};
+
+	return _.extend(App, Backbone.Events);
 });
