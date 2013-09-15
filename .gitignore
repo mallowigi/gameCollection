@@ -216,8 +216,10 @@ pip-log.txt
 .idea
 *.iml
 
-node_modules/
-app/vendor/
-app/css/
-app/js/
-app/img/
+
+
+
+
+
+*.log
+/app/test
