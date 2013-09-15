@@ -17,13 +17,9 @@ define([
 			options.xhrFields = {
 				withCredentials: true
 			};
-			//
-			//				// If we have a csrf token send it through with the next request
-			//				if (typeof that.get('_csrf') !== 'undefined') {
-			//					xhr.setRequestHeader('X-CSRF-Token', that.get('_csrf'));
-			//				}
 			options.url = config.serverUrl + options.url;
 		}
+
 		// Local requests need to change this value
 		options.crossDomain = true;
 	});
@@ -31,7 +27,6 @@ define([
 	// Inits the Application layout
 	var AppLayout = Backbone.Layout.extend({
 		el: '#app',
-		//			template: 'layouts/appLayout',
 
 		events: {
 			'click a[href]:not([data-bypass])': 'routeLinks'

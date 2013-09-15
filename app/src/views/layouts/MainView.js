@@ -8,6 +8,7 @@ define(['backbone'
 ], function (Backbone) {
 	'use strict';
 	var MainView = Backbone.View.extend({
+		el: '#main',
 		initialize: function () {
 			console.log('Initiating MainView');
 		}
